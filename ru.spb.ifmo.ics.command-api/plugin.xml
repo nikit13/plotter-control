@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.services">
+      <serviceFactory
+            factoryClass="ru.spb.ifmo.ics.command.CommandServiceFactory">
+         <service
+               serviceClass="ru.spb.ifmo.ics.command.CommandService">
+         </service>
+      </serviceFactory>
+      <serviceFactory
+            factoryClass="ru.spb.ifmo.ics.serial.SerialServiceFactory">
+         <service
+               serviceClass="ru.spb.ifmo.ics.serial.SerialService">
+         </service>
+      </serviceFactory>
+   </extension>
+
+</plugin>

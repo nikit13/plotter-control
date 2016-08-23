@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application
+            thread="main">
+         <run
+               class="ru.spb.ifmo.ics.control.ControlApplication">
+         </run>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            name="Управление плоттером"
+            class="ru.spb.ifmo.ics.control.ControlPerspective"
+            id="ru.spb.ifmo.ics.perspective.controlPerspective">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="ru.spb.ifmo.ics.control.view.DevicesView"
+            id="ru.spb.ifmo.ics.view.devicesView"
+            name="Устройства"
+            restorable="true">
+      </view>
+      <view
+            class="ru.spb.ifmo.ics.control.view.LogView"
+            id="ru.spb.ifmo.ics.view.logView"
+            name="Сообщения"
+            restorable="true">
+      </view>
+      <view
+            class="ru.spb.ifmo.ics.control.view.HistoryView"
+            id="ru.spb.ifmo.ics.view.historyView"
+            name="История"
+            restorable="true">
+      </view>
+      <view
+            class="ru.spb.ifmo.ics.control.view.DrawFigureView"
+            id="ru.spb.ifmo.ics.view.drawFigureView"
+            name="Рисование фигур"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="ru.spb.ifmo.ics.control.application"
+            name="Управление плоттером">
+         <property
+               name="appName"
+               value="Управление плоттером">
+         </property>
+      </product>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:ru.spb.ifmo.ics.view.devicesView">
+         <command
+               commandId="ru.spb.ifmo.ics.command.connectDevice"
+               icon="icons/connect.png"
+               label="Подключить устройство"
+               style="push">
+         </command>
+         <command
+               commandId="ru.spb.ifmo.ics.command.disconnectDevice"
+               icon="icons/disconnect.png"
+               label="Отключить устройство"
+               style="push">
+         </command>
+         <command
+               commandId="ru.spb.ifmo.ics.command.refreshDevices"
+               icon="icons/refresh.gif"
+               label="Обновить список устройств"
+               style="push"
+               tooltip="Обновить список доступных портов">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:ru.spb.ifmo.ics.view.devicesView">
+            <menu
+                  label="Выполнить команду">
+            <command
+                  commandId="ru.spb.ifmo.ics.command.invokeCommand"
+                  label="checkconnection"
+                  style="push">
+               <parameter
+                     name="ru.spb.ifmo.ics.command.invokeCommand.commandName"
+                     value="checkconnection">
+               </parameter>
+            </command>
+            <command
+                  commandId="ru.spb.ifmo.ics.command.invokeCommand"
+                  label="closeconnection"
+                  style="push">
+               <parameter
+                     name="ru.spb.ifmo.ics.command.invokeCommand.commandName"
+                     value="closeconnection">
+               </parameter>
+            </command>
+            <command
+                  commandId="ru.spb.ifmo.ics.command.invokeCommand"
+                  label="emptycommand"
+                  style="push">
+               <parameter
+                     name="ru.spb.ifmo.ics.command.invokeCommand.commandName"
+                     value="emptycommand">
+               </parameter>
+            </command>
+            </menu>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="ru.spb.ifmo.ics.command.category.refresh"
+            name="Категория команд обновления данных">
+      </category>
+      <command
+            categoryId="ru.spb.ifmo.ics.command.category.refresh"
+            description="Обновить список устройств"
+            id="ru.spb.ifmo.ics.command.refreshDevices"
+            name="Обновить список устройств">
+      </command>
+      <command
+            categoryId="ru.spb.ifmo.ics.command.category.invoke"
+            description="Выполнить команду"
+            id="ru.spb.ifmo.ics.command.invokeCommand"
+            name="Выполнить команду">
+         <commandParameter
+               id="ru.spb.ifmo.ics.command.invokeCommand.commandName"
+               name="commandName"
+               optional="false">
+         </commandParameter>
+      </command>
+      <category
+            id="ru.spb.ifmo.ics.command.category.invoke"
+            name="Категория команд запуска заданий плоттеру">
+      </category>
+      <command
+            id="ru.spb.ifmo.ics.command.connectDevice"
+            name="Подключить устройство">
+      </command>
+      <command
+            id="ru.spb.ifmo.ics.command.disconnectDevice"
+            name="Отключить устройство">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="ru.spb.ifmo.ics.control.handler.RefreshDevicesHandler"
+            commandId="ru.spb.ifmo.ics.command.refreshDevices">
+      </handler>
+      <handler
+            class="ru.spb.ifmo.ics.control.handler.InvokeCommandHandler"
+            commandId="ru.spb.ifmo.ics.command.invokeCommand">
+      </handler>
+      <handler
+            class="ru.spb.ifmo.ics.control.handler.ConnectDeviceHandler"
+            commandId="ru.spb.ifmo.ics.command.connectDevice">
+      </handler>
+      <handler
+            class="ru.spb.ifmo.ics.control.handler.DisconnectDeviceHandler"
+            commandId="ru.spb.ifmo.ics.command.disconnectDevice">
+      </handler>
+   </extension>
+
+</plugin>
